@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════
+   RESONATE — "Bioluminescent Deep Ocean" Design System
+   ═══════════════════════════════════════════════════ */
+
+:root {
+  /* ─── Depths — Backgrounds ─── */
+  --depth-abyss: #04060f;
+  --depth-trench: #080e1e;
+  --depth-midnight: #0d1530;
+  --depth-dusk: #151f3d;
+
+  /* ─── Bioluminescence — Primary interactions ─── */
+  --bio-pulse: #4af7c4;
+  --bio-match: #c77dff;
+  --bio-spark: #ff9f43;
+  --bio-deep: #48cae4;
+
+  /* ─── Waveform spectrum — Frequency visualization ─── */
+  --wave-1: #4af7c4;
+  --wave-2: #38e3ff;
+  --wave-3: #9b72ff;
+  --wave-4: #ff6eb4;
+  --wave-5: #ff9f43;
+
+  /* ─── Glass surfaces ─── */
+  --glass-surface: rgba(13, 21, 48, 0.7);
+  --glass-border: rgba(74, 247, 196, 0.12);
+  --glass-glow: rgba(74, 247, 196, 0.06);
+
+  /* ─── Text ─── */
+  --text-primary: rgba(255, 255, 255, 0.95);
+  --text-secondary: rgba(255, 255, 255, 0.55);
+  --text-ghost: rgba(255, 255, 255, 0.25);
+
+  /* ─── Glow layers ─── */
+  --glow-sm: 0 0 12px rgba(74, 247, 196, 0.25);
+  --glow-md: 0 0 30px rgba(74, 247, 196, 0.35);
+  --glow-lg: 0 0 60px rgba(74, 247, 196, 0.20);
+  --glow-match: 0 0 80px rgba(199, 125, 255, 0.45);
+
+  /* ─── Easing curves ─── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-expo: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ─── Spacing & Radii ─── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+}
+
+/* ═══════════════════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════════════════ */
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--depth-abyss);
+  color: var(--text-primary);
+  font-family: "General Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════════════════
+   GLASS UTILITIES
+   ═══════════════════════════════════════════════════ */
+
+.glass {
+  background: var(--glass-surface);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-glow {
+  background: var(--glass-surface);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glow-sm);
+}
+
+/* ═══════════════════════════════════════════════════
+   GLOW UTILITIES
+   ═══════════════════════════════════════════════════ */
+
+.glow-pulse {
+  box-shadow: var(--glow-sm);
+  transition: box-shadow 0.4s var(--ease-out-expo);
+}
+
+.glow-pulse:hover {
+  box-shadow: var(--glow-lg);
+}
+
+.glow-match {
+  box-shadow: var(--glow-match);
+}
+
+/* ═══════════════════════════════════════════════════
+   TYPOGRAPHY UTILITIES
+   ═══════════════════════════════════════════════════ */
+
+.font-display {
+  font-family: "Melodrama", "General Sans", serif;
+}
+
+.font-mono-data {
+  font-family: "Fragment Mono", "Fira Code", monospace;
+}
+
+.text-gradient-bio {
+  background: linear-gradient(135deg, var(--bio-pulse), var(--bio-deep));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-match {
+  background: linear-gradient(135deg, var(--bio-match), var(--bio-pulse));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--depth-abyss);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bio-pulse);
+}
+
+/* ═══════════════════════════════════════════════════
+   SELECTION
+   ═══════════════════════════════════════════════════ */
+
+::selection {
+  background: rgba(74, 247, 196, 0.25);
+  color: var(--text-primary);
+}
