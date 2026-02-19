@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
 
-export default function LoginPage() {
+function LoginContent() {
     const searchParams = useSearchParams();
     const callbackUrl = searchParams.get("callbackUrl") ?? "/discover";
     const [email, setEmail] = useState("");
@@ -128,5 +128,13 @@ export default function LoginPage() {
                 )}
             </section>
         </main>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<main className="min-h-screen bg-[var(--depth-abyss)]" />}>
+            <LoginContent />
+        </Suspense>
     );
 }
