@@ -1,4 +1,5 @@
 import { router, publicProcedure, protectedProcedure } from "@/server/api/trpc";
+import { usersRouter } from "@/server/api/routers/users";
 
 /**
  * App Router — Root tRPC router
@@ -14,6 +15,9 @@ export const appRouter = router({
     getSession: protectedProcedure.query(({ ctx }) => {
         return ctx.session;
     }),
+
+    // Users domain
+    users: usersRouter,
 });
 
 export type AppRouter = typeof appRouter;
