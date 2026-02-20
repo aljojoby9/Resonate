@@ -1,51 +1,122 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════
-   RESONATE — "Bioluminescent Deep Ocean" Design System
+   RESONATE — Tailwind v4 Theme
+   Maps design tokens to utility classes
+   ═══════════════════════════════════════════════════ */
+
+@theme {
+  /* ─── Colors ─── */
+  --color-depth-abyss: #04060f;
+  --color-depth-trench: #080e1e;
+  --color-depth-midnight: #0d1530;
+  --color-depth-dusk: #151f3d;
+
+  --color-bio-pulse: #4af7c4;
+  --color-bio-match: #c77dff;
+  --color-bio-spark: #ff9f43;
+  --color-bio-deep: #48cae4;
+
+  --color-wave-1: #4af7c4;
+  --color-wave-2: #38e3ff;
+  --color-wave-3: #9b72ff;
+  --color-wave-4: #ff6eb4;
+  --color-wave-5: #ff9f43;
+
+  --color-glass-surface: rgba(13, 21, 48, 0.7);
+  --color-glass-border: rgba(74, 247, 196, 0.12);
+  --color-glass-glow: rgba(74, 247, 196, 0.06);
+
+  /* ─── Fonts ─── */
+  --font-display: "Melodrama", "Georgia", serif;
+  --font-sans: "Inter", "General Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: "Fragment Mono", "Fira Code", monospace;
+
+  /* ─── Shadows ─── */
+  --shadow-glow-sm: 0 0 12px rgba(74, 247, 196, 0.25);
+  --shadow-glow-md: 0 0 30px rgba(74, 247, 196, 0.35);
+  --shadow-glow-lg: 0 0 60px rgba(74, 247, 196, 0.20);
+  --shadow-glow-match: 0 0 80px rgba(199, 125, 255, 0.45);
+
+  /* ─── Backdrop Blur ─── */
+  --backdrop-blur-glass: 24px;
+
+  /* ─── Easing ─── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-expo: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ─── Radius ─── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  /* ─── Animations ─── */
+  --animate-waveform: waveform 2.4s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-frequency: frequency 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes waveform {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1.0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 12px rgba(74, 247, 196, 0.25); }
+  50% { box-shadow: 0 0 40px rgba(74, 247, 196, 0.55); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes frequency {
+  from { transform: scaleY(0.3) scaleX(1); }
+  to { transform: scaleY(1.2) scaleX(0.95); }
+}
+
+/* ═══════════════════════════════════════════════════
+   CSS CUSTOM PROPERTIES (for non-Tailwind usage)
    ═══════════════════════════════════════════════════ */
 
 :root {
-  /* ─── Depths — Backgrounds ─── */
   --depth-abyss: #04060f;
   --depth-trench: #080e1e;
   --depth-midnight: #0d1530;
   --depth-dusk: #151f3d;
 
-  /* ─── Bioluminescence — Primary interactions ─── */
   --bio-pulse: #4af7c4;
   --bio-match: #c77dff;
   --bio-spark: #ff9f43;
   --bio-deep: #48cae4;
 
-  /* ─── Waveform spectrum — Frequency visualization ─── */
   --wave-1: #4af7c4;
   --wave-2: #38e3ff;
   --wave-3: #9b72ff;
   --wave-4: #ff6eb4;
   --wave-5: #ff9f43;
 
-  /* ─── Glass surfaces ─── */
   --glass-surface: rgba(13, 21, 48, 0.7);
   --glass-border: rgba(74, 247, 196, 0.12);
   --glass-glow: rgba(74, 247, 196, 0.06);
 
-  /* ─── Text ─── */
   --text-primary: rgba(255, 255, 255, 0.95);
   --text-secondary: rgba(255, 255, 255, 0.55);
   --text-ghost: rgba(255, 255, 255, 0.25);
 
-  /* ─── Glow layers ─── */
   --glow-sm: 0 0 12px rgba(74, 247, 196, 0.25);
   --glow-md: 0 0 30px rgba(74, 247, 196, 0.35);
   --glow-lg: 0 0 60px rgba(74, 247, 196, 0.20);
   --glow-match: 0 0 80px rgba(199, 125, 255, 0.45);
 
-  /* ─── Easing curves ─── */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-expo: cubic-bezier(0.7, 0, 0.84, 0);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* ─── Spacing & Radii ─── */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
@@ -63,7 +134,6 @@ html {
 body {
   background-color: var(--depth-abyss);
   color: var(--text-primary);
-  font-family: "General Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -110,7 +180,7 @@ body {
    ═══════════════════════════════════════════════════ */
 
 .font-display {
-  font-family: "Melodrama", "General Sans", serif;
+  font-family: "Melodrama", "Georgia", serif;
 }
 
 .font-mono-data {

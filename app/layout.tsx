@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import { Inter } from "next/font/google";
 import { Providers } from "./providers";
+import "./globals.css";
+
+const inter = Inter({
+    subsets: ["latin"],
+    variable: "--font-inter",
+    display: "swap",
+});
 
 export const metadata: Metadata = {
-    title: "RESONATE — Emotional Frequency Dating",
+    title: { default: "RESONATE", template: "%s | RESONATE" },
     description:
         "The world's first emotional frequency dating platform. Connect through resonance, not selfies.",
     openGraph: {
@@ -24,8 +31,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="dark">
-            <body className="antialiased">
+        <html lang="en" className={`dark ${inter.variable}`}>
+            <body className="bg-depth-abyss font-sans text-white antialiased">
                 <Providers>{children}</Providers>
             </body>
         </html>

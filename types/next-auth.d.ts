@@ -1,15 +1,15 @@
-import { DefaultSession } from "next-auth";
+import "next-auth";
 
 declare module "next-auth" {
-    interface Session {
-        user: DefaultSession["user"] & {
-            id: string;
-            onboardingComplete: boolean;
-        };
-    }
-
     interface User {
         onboardingComplete?: boolean;
+    }
+
+    interface Session {
+        user: User & {
+            id: string;
+            onboardingComplete?: boolean;
+        };
     }
 }
 
