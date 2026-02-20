@@ -1,5 +1,6 @@
 import { router, publicProcedure, protectedProcedure } from "@/server/api/trpc";
 import { usersRouter } from "@/server/api/routers/users";
+import { eventsRouter } from "@/server/api/routers/events";
 
 /**
  * App Router — Root tRPC router
@@ -18,6 +19,9 @@ export const appRouter = router({
 
     // Users domain
     users: usersRouter,
+
+    // Behavioral events
+    events: eventsRouter,
 });
 
 export type AppRouter = typeof appRouter;
