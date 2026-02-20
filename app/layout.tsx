@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { Analytics } from "@vercel/analytics/react";
-import { TRPCReactProvider } from "@/lib/trpc/client";
-import { Toaster } from "@/components/ui/toaster";
-import "@/styles/globals.css";
+import "./globals.css";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-    title: { default: "RESONATE", template: "%s | RESONATE" },
-    description: "Match at the frequency of who you actually are.",
-    manifest: "/manifest.webmanifest",
-    themeColor: "#04060f",
+    title: "RESONATE — Emotional Frequency Dating",
+    description:
+        "The world's first emotional frequency dating platform. Connect through resonance, not selfies.",
+    openGraph: {
+        title: "RESONATE — Emotional Frequency Dating",
+        description:
+            "Match at the frequency of who you actually are. No swipes — just resonance.",
+        siteName: "RESONATE",
+        type: "website",
+    },
+    icons: {
+        icon: "/favicon.ico",
+    },
 };
 
 export default function RootLayout({
@@ -19,14 +25,8 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="dark">
-            <body
-                className={`bg-depth-abyss font-sans text-white antialiased ${GeistSans.className}`}
-            >
-                <TRPCReactProvider>
-                    {children}
-                    <Toaster />
-                </TRPCReactProvider>
-                <Analytics />
+            <body className="antialiased">
+                <Providers>{children}</Providers>
             </body>
         </html>
     );
