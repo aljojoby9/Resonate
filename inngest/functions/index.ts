@@ -5,8 +5,12 @@
  * The serve endpoint reads from this array.
  */
 
-// Stubs — filled in Layers 2-6 as algorithms are implemented
-// import { rebuildProfile } from "./rebuild-profile";
+import {
+    rebuildProfileOnVoiceNote,
+    rebuildAllProfilesDaily,
+} from "./rebuild-profile";
+
+// Stubs — filled in as algorithms are implemented
 // import { moderatePhoto } from "./moderate-photo";
 // import { processMatch } from "./process-match";
 // import { monitorConversations } from "./conversation-health";
@@ -14,8 +18,8 @@
 // import { accountDeletion } from "./account-deletion";
 
 export const functions = [
-    // Uncomment as each function is implemented:
-    // rebuildProfile,
+    rebuildProfileOnVoiceNote,
+    rebuildAllProfilesDaily,
     // moderatePhoto,
     // processMatch,
     // monitorConversations,
