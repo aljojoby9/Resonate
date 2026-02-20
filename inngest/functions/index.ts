@@ -1,28 +1,25 @@
 /**
  * Inngest Functions Registry
- *
- * All Inngest functions are imported and registered here.
- * The serve endpoint reads from this array.
+ * All functions registered here are served at /api/inngest
  */
 
 import {
     rebuildProfileOnVoiceNote,
     rebuildAllProfilesDaily,
 } from "./rebuild-profile";
-
-// Stubs — filled in as algorithms are implemented
-// import { moderatePhoto } from "./moderate-photo";
-// import { processMatch } from "./process-match";
-// import { monitorConversations } from "./conversation-health";
-// import { subscriptionWarnings } from "./subscription-warnings";
-// import { accountDeletion } from "./account-deletion";
+import { monitorConversations } from "./conversation-health";
 
 export const functions = [
+    // Layer 2: RPB
     rebuildProfileOnVoiceNote,
     rebuildAllProfilesDaily,
+
+    // Layer 5: CHM
+    monitorConversations,
+
+    // Stubs — filled in Layer 6:
     // moderatePhoto,
     // processMatch,
-    // monitorConversations,
     // subscriptionWarnings,
     // accountDeletion,
 ];
