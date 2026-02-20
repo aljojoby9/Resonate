@@ -7,11 +7,11 @@ import superjson from "superjson";
  * tRPC context — provides session and DB access to all procedures
  */
 export const createTRPCContext = async () => {
-    const session = await auth();
-    return {
-        session,
-        db,
-    };
+  const session = await auth();
+  return {
+    session,
+    db,
+  };
 };
 
 type Context = Awaited<ReturnType<typeof createTRPCContext>>;
@@ -20,17 +20,22 @@ type Context = Awaited<ReturnType<typeof createTRPCContext>>;
  * Initialize tRPC — this should only be done once per app
  */
 const t = initTRPC.context<Context>().create({
-    transformer: superjson,
+  transformer: superjson,
 });
+
+/**
+ * Reusable middleware that enforces users are logged in
+ */
 const enforceAuth = t.middleware(({ ctx, next }) => {
-    if (!ctx.session?.user) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
-    return next({
-        ctx: {
-            session: { ...ctx.session, user: ctx.session.user },
-        },
-    });
+  if (!ctx.session?.user) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  return next({
+    ctx: {
+      session: { ...ctx.session, user: ctx.session.user },
+      db: ctx.db,
+    },
+  });
 });
 
 /**

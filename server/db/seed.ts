@@ -150,7 +150,7 @@ async function seed() {
         {
             dominantEmotionTags: ["joyful", "creative", "philosophical"],
             energyArchetype: "anchor" as const,
-            communicationStyle: "witty" as const,
+            communicationStyle: "minimal" as const,
             vocabularyRichnessScore: 0.84,
             humorDetectionScore: 0.92,
             depthSeekerScore: 0.79,

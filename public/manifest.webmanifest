@@ -1,0 +1,8 @@
+{
+  "name": "RESONATE",
+  "short_name": "RESONATE",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#04060f",
+  "theme_color": "#04060f"
+}

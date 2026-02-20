@@ -1,15 +1,16 @@
 export default function OnboardingVoicePage() {
     return (
-        <main className="mx-auto flex min-h-screen max-w-3xl items-center justify-center px-6 py-12">
-            <section className="w-full rounded-3xl glass p-8">
-                <h1 className="font-display text-4xl text-gradient-bio">
-                    Onboarding: Voice
-                </h1>
-                <p className="mt-3 text-white/70">
-                    Your onboarding flow starts here. Complete this to unlock
-                    discovery.
-                </p>
-            </section>
-        </main>
+        <div className="flex min-h-screen flex-col items-center justify-center gap-4">
+            <h1 className="font-display text-4xl text-gradient-bio">Welcome to RESONATE</h1>
+            <p style={{ color: "var(--text-secondary)" }}>
+                Let&apos;s set up your emotional frequency profile.
+            </p>
+            <p
+                className="text-xs"
+                style={{ color: "var(--text-ghost)" }}
+            >
+                Onboarding flow coming in Day 3...
+            </p>
+        </div>
     );
 }

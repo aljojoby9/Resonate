@@ -3,41 +3,46 @@ import { NextResponse } from "next/server";
 
 export default auth((req) => {
     const { pathname } = req.nextUrl;
-    const isAuth = !!req.auth?.user;
-    const onboardingComplete = Boolean(req.auth?.user?.onboardingComplete);
-    const isAuthRoute =
-        pathname.startsWith("/login") || pathname.startsWith("/verify");
-    const isOnboardingRoute = pathname.startsWith("/onboarding");
-    const isRootRoute = pathname === "/";
+    const session = req.auth;
+    const isAuthed = !!session?.user;
+    const onboardingComplete = (
+        session?.user as { onboardingComplete?: boolean } | undefined
+    )?.onboardingComplete;
 
-    if (!isAuth && !isAuthRoute && !isRootRoute) {
+    // 1. Redirect unauthenticated users away from protected routes
+    const protectedPaths = ["/discover", "/matches", "/profile", "/settings", "/onboarding"];
+    const isProtectedRoute = protectedPaths.some((path) => pathname.startsWith(path));
+
+    if (isProtectedRoute && !isAuthed) {
         const loginUrl = new URL("/login", req.url);
         loginUrl.searchParams.set("callbackUrl", pathname);
         return NextResponse.redirect(loginUrl);
     }
 
-    if (!isAuth && isRootRoute) {
-        return NextResponse.redirect(new URL("/login", req.url));
+    // 2. Redirect authenticated users away from auth pages
+    const authPaths = ["/login", "/verify"];
+    const isAuthRoute = authPaths.some((path) => pathname.startsWith(path));
+
+    if (isAuthRoute && isAuthed) {
+        // Send to onboarding if not complete, otherwise discover
+        return NextResponse.redirect(
+            new URL(onboardingComplete ? "/discover" : "/onboarding/voice", req.url)
+        );
     }
 
-    if (isAuthRoute && isAuth) {
-        if (!onboardingComplete) {
-            return NextResponse.redirect(new URL("/onboarding/voice", req.url));
-        }
-        return NextResponse.redirect(new URL("/discover", req.url));
-    }
-
-    if (isAuth && !onboardingComplete && !isOnboardingRoute) {
+    // 3. Onboarding gate — authed users who haven't finished onboarding
+    const isApp = ["/discover", "/matches", "/profile", "/settings"].some(
+        (p) => pathname.startsWith(p)
+    );
+    if (isApp && isAuthed && !onboardingComplete) {
         return NextResponse.redirect(new URL("/onboarding/voice", req.url));
-    }
-
-    if (isAuth && onboardingComplete && isOnboardingRoute) {
-        return NextResponse.redirect(new URL("/discover", req.url));
     }
 
     return NextResponse.next();
 });
 
 export const config = {
-    matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\..*$).*)"],
+    matcher: [
+        "/((?!api|_next/static|_next/image|favicon.ico|.*\\..*$).*)",
+    ],
 };
